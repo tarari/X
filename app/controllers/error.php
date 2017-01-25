@@ -5,15 +5,15 @@
    use X\Sys\Controller;
 
 
-   class Home extends Controller{
+   class Error extends Controller{
    		
 
    		public function __construct($params){
    			parent::__construct($params);
             $this->addData(array(
-               'page'=>'Home'));
-   			$this->model=new \X\App\Models\mHome();
-   			$this->view =new \X\App\Views\vHome($this->dataView);
+               'page'=>'Error'));
+   			$this->model=new \X\App\Models\mError();
+   			$this->view =new \X\App\Views\vError($this->dataView);
             
    		}
 
@@ -21,6 +21,4 @@
    		function home(){
    			
    		}
-
-         
    }

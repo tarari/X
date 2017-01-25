@@ -8,4 +8,5 @@
 	define('ROOT',realpath(__DIR__).DS);
 	// to acces to filesystem
 	define('APP',ROOT.'app'.DS);
+	define('APP_W',dirname($_SERVER['PHP_SELF']).'/');
 	

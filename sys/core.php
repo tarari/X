@@ -11,6 +11,7 @@
 	**/
 
 	use X\Sys\Request;
+	use X\App\Controllers\Error;
 
 	class Core{
 		static private $controller;
@@ -33,18 +34,33 @@
 			self::router();
 		}
 		/**
+		 * 
+		 *  Obtaining file controller
+		 * 
+		 * 
+		 *  @return string $fileroute
+		 * 
+		 * */
+		static function getFileContAct(){
+			self::$controller=(self::$controller!="")?self::$controller:'home';
+			self::$action=(self::$action!="")?self::$action:'home';
+			//trobar controladors
+			$filename=strtolower(self::$controller).'.php';
+			$fileroute=APP.'controllers'.DS.$filename;
+			return $fileroute;
+
+		}
+
+
+		/**
 		* router: Looks for controller and action
 		*
 		*
 		*
 		*/
 		static function router(){
-			//si no hi ha controller busquem 'home'
-			self::$controller=(self::$controller!="")?self::$controller:'home';
-			self::$action=(self::$action!="")?self::$action:'home';
-			//trobar controladors
-			$filename=strtolower(self::$controller).'.php';
-			$fileroute=APP.'controllers'.DS.$filename;
+			
+			$fileroute=self::getFileContAct();
 		
 			if(is_readable($fileroute)){
 				$contr_class='\X\App\Controllers\\'.ucfirst(self::$controller);
@@ -53,9 +69,11 @@
 				if (is_callable(array(self::$controller,self::$action))){
 					call_user_func(array(self::$controller,self::$action));
 				}
-				else{ echo self::$action.': Mètode inexistent';}
+				else{ 
+					 self::$action='error';
+					 call_user_func(array(self::$controller,self::$action));}
 			}else{
-				echo self::$controller.': Controlador inexistent';
+				self::$controller=new Error(self::$params);
 			}
 		}
 	}
