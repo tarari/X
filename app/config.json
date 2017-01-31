@@ -4,10 +4,11 @@
 		"version":"1.0"
 	},
 	"dbconf":{
-		"driver":"",
-		"dbhost":"",
-		"dbuser":"",
-		"dbname":""
+		"driver":"mysql",
+		"dbhost":"localhost",
+		"dbuser":"storypub",
+		"dbpass":"storypub",
+		"dbname":"storypub"
 	}
 
 }
