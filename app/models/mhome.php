@@ -9,6 +9,7 @@
 			parent::__construct();
 			
 		}
+                //an example....
 		public function getRoles(){
 			$sql="SELECT * FROM roles";
 			$this->query($sql);

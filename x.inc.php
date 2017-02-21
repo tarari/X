@@ -8,5 +8,20 @@
 	define('ROOT',realpath(__DIR__).DS);
 	// to acces to filesystem
 	define('APP',ROOT.'app'.DS);
-	define('APP_W',dirname($_SERVER['PHP_SELF']).'/');
-	
+        define('BASE',$_SERVER['SERVER_NAME']);
+        
+	define('APP_W',root());
+	/**
+         * determines the public root
+         * @return string
+         * 
+         * 
+         */
+        function root(){
+           
+            if((dirname($_SERVER['PHP_SELF']))==='/'){
+                return '/';
+            }else{
+                return dirname($_SERVER['PHP_SELF']).'/';
+            }
+        }

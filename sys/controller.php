@@ -19,14 +19,60 @@
 		protected $dataTable=array();
 		protected $conf; //object configuration data
 		protected $app; //app version and title data
+                protected $assets; // css, img, fonts and js
 		
 		function __construct($params=null,$dataView=null){
 			$this->params=$params;
 			$this->conf=Registry::getInstance();
 			$this->app=(array)$this->conf->app;
+                        $this->assets=(array)$this->conf->assets;
+                        $this->addData($this->ext_assets($this->assets));
 			$this->addData($this->app);
 			
 		}
+                /**
+                 * Updates assets array with path
+                 * 
+                 * @param array $array
+                 * @return array
+                 */
+                function ext_assets($array){
+                    $rs_array=array();
+                    foreach ($array as $key=>$value){
+                        $rs_array[$key]=$this->into_assets($value);
+                    }
+                    return $rs_array;
+                }
+                /**
+                 * prepares assets path
+                 * 
+                 * @param string $resource
+                 * @return string
+                 */
+                function into_assets($resource){
+                    $ext= explode('.',$resource);
+                    
+                    switch($ext[1]){
+                        case 'css':$string='pub/css/';
+                            break;
+                        case 'js':$string='pub/js/';
+                            break;
+                        case 'wof':$string='pub/font/';
+                            break;
+                        case 'ttf':$string='pub/font/';
+                            break;
+                        case 'png':$string='pub/img/';
+                            break;
+                        case 'jpg':$string='pub/img/';
+                            break;
+                        default :
+                            break;
+        
+                    }
+                    
+                        return $string.$resource;
+                    
+                }
 		/**
 		 *   Merge two arrays
 		 * 
